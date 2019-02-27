@@ -10,26 +10,70 @@
       - "me@example.com"
       - "äëöüï@example.org"
       - "foo@example.com"
-    wkd_gpg_key_directory: "/tmp/{{ wkd_gpg_uid | wkd_dir(wkd_method='advanced') }}"
 
   tasks:
     - name: Role znerol.wkd_gpg imported
       import_role:
         name: ../../ansible-role-wkd-gpg
 
-    - name: WKD directory present
-      loop: "{{ wkd_gpg_uids | list }}"
-      loop_control:
-        loop_var: wkd_gpg_uid
-      file:
-        state: directory
-        path: "{{ wkd_gpg_key_directory }}"
-        recurse: true
+    - name: Test wkd_key direct directory structure
+      vars:
+        wkd_gpg_key_directory: "/tmp/test1/{{ wkd_gpg_uid | wkd_dir(wkd_method='direct') }}"
+      block:
+        - name: WKD directory present
+          loop: "{{ wkd_gpg_uids | list }}"
+          loop_control:
+            loop_var: wkd_gpg_uid
+          file:
+            state: directory
+            path: "{{ wkd_gpg_key_directory }}"
+            recurse: true
 
-    - name: GPG key exported
-      loop: "{{ wkd_gpg_uids | list }}"
-      loop_control:
-        loop_var: wkd_gpg_uid
-      include_role:
-        name: ../../ansible-role-wkd-gpg
-        tasks_from: wkd_key
+        - name: GPG key exported
+          loop: "{{ wkd_gpg_uids | list }}"
+          loop_control:
+            loop_var: wkd_gpg_uid
+          include_role:
+            name: ../../ansible-role-wkd-gpg
+            tasks_from: wkd_key
+
+    - name: Test wkd_key advanced directory structure
+      vars:
+        wkd_gpg_key_directory: "/tmp/test2/{{ wkd_gpg_uid | wkd_dir(wkd_method='advanced') }}"
+      block:
+        - name: WKD directory present
+          loop: "{{ wkd_gpg_uids | list }}"
+          loop_control:
+            loop_var: wkd_gpg_uid
+          file:
+            state: directory
+            path: "{{ wkd_gpg_key_directory }}"
+            recurse: true
+
+        - name: GPG key exported
+          loop: "{{ wkd_gpg_uids | list }}"
+          loop_control:
+            loop_var: wkd_gpg_uid
+          include_role:
+            name: ../../ansible-role-wkd-gpg
+            tasks_from: wkd_key
+
+    - name: Test wkd_dir tasks direct directory structure
+      vars:
+        wkd_basedir: "/tmp/test3"
+        wkd_method: 'direct'
+      block:
+        - name: WKD directory structure generated
+          include_role:
+            name: ../../ansible-role-wkd-gpg
+            tasks_from: wkd_dir
+
+    - name: Test wkd_dir tasks advanced directory structure
+      vars:
+        wkd_basedir: "/tmp/test4"
+        wkd_method: 'advanced'
+      block:
+        - name: WKD directory structure generated
+          include_role:
+            name: ../../ansible-role-wkd-gpg
+            tasks_from: wkd_dir
