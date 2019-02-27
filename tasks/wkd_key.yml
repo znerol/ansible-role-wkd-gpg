@@ -8,7 +8,7 @@
   vars:
     wkd_gpg_key_uid_exact: "<{{ wkd_gpg_uid }}>"
   command: |
-    gpg --export --armor {{ wkd_gpg_key_uid_exact | quote }}
+    gpg --export {{ wkd_gpg_key_uid_exact | quote }}
 
 - name: GPG key stored
   register: wkd_gpg_key_stored
