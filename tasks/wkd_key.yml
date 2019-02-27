@@ -1,17 +1,32 @@
 ---
+- name: GPG key tempfile created
+  register: wkd_gpg_key_tempfile
+  changed_when: false
+  check_mode: no
+  tempfile:
+
 - name: GPG key extracted
   register: wkd_gpg_key_extracted
   changed_when: false
-  failed_when: |
-      wkd_gpg_key_extracted.rc != 0
-      or wkd_gpg_key_extracted.stdout == ""
+  check_mode: no
   vars:
     wkd_gpg_key_uid_exact: "<{{ wkd_gpg_uid }}>"
   command: |
-    gpg --export {{ wkd_gpg_key_uid_exact | quote }}
+    gpg --export --batch --yes --output {{ wkd_gpg_key_tempfile.path }} {{ wkd_gpg_key_uid_exact | quote }}
 
 - name: GPG key stored
   register: wkd_gpg_key_stored
+  failed_when: |
+      not ansible_check_mode
+      and wkd_gpg_key_stored.size == 0
   copy:
+    src: "{{ wkd_gpg_key_tempfile.path }}"
     dest: "{{ wkd_gpg_key_directory }}/{{ wkd_gpg_uid | wkd_hash() }}"
-    content: "{{ wkd_gpg_key_extracted.stdout }}"
+    remote_src: yes
+
+- name: GPG key tempfile removed
+  changed_when: false
+  check_mode: no
+  file:
+    path: "{{ wkd_gpg_key_tempfile.path }}"
+    state: absent
