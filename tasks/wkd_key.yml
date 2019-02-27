@@ -1,0 +1,17 @@
+---
+- name: GPG key extracted
+  register: wkd_gpg_key_extracted
+  changed_when: false
+  failed_when: |
+      wkd_gpg_key_extracted.rc != 0
+      or wkd_gpg_key_extracted.stdout == ""
+  vars:
+    wkd_gpg_key_uid_exact: "<{{ wkd_gpg_uid }}>"
+  command: |
+    gpg --export --armor {{ wkd_gpg_key_uid_exact | quote }}
+
+- name: GPG key stored
+  register: wkd_gpg_key_stored
+  copy:
+    dest: "{{ wkd_gpg_key_directory }}/{{ wkd_gpg_uid | wkd_hash() }}"
+    content: "{{ wkd_gpg_key_extracted.stdout }}"
