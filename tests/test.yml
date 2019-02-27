@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
+  environment:
+    GNUPGHOME: "{{ playbook_dir }}/fixtures/gnupg"
   vars:
     wkd_gpg_uids:
       - "Joe.Doe@Example.ORG"
