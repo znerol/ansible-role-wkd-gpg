@@ -13,6 +13,7 @@ env:
 install:
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible-lint; fi
+  - ansible-galaxy install znerol.gpg_export
   - ansible-galaxy install znerol.wkd
 
 script:
