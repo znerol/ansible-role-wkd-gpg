@@ -31,3 +31,4 @@ galaxy_info:
 
 dependencies:
   - znerol.wkd
+  - znerol.gpg_export
