@@ -18,7 +18,7 @@
         wkd_method: direct
       block:
         - name: WKD directory structure generated
-          include_role:
+          import_role:
             name: ../../ansible-role-wkd-gpg
 
     - name: Test wkd_dir tasks advanced directory structure
@@ -27,5 +27,5 @@
         wkd_method: advanced
       block:
         - name: WKD directory structure generated
-          include_role:
+          import_role:
             name: ../../ansible-role-wkd-gpg
