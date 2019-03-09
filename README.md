@@ -1,5 +1,5 @@
-Anlibe Role: WKD
-================
+Ansible Role: WKD
+=================
 
 [![Build Status](https://travis-ci.org/znerol/ansible-role-wkd-gpg.svg?branch=master)](https://travis-ci.org/znerol/ansible-role-wkd-gpg)
 
