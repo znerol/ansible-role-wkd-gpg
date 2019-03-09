@@ -27,7 +27,7 @@ Optional Role Variables
 * `wkd_method`: Either `direct` or `advanced` (see section Key Discovery in
   [draft standard][4]). Defaults to `advanced`.
 * `wkd_gpg_export_dest`: Path where the GPG keys will be exported to. Defaults
-  to a heavily templetad string, see the source.
+  to a heavily templetad string, see [defaults/main.yml](defaults/main.yml).
 * `wkd_gpg_export_params`: A hash of additional parameters passed to
   [znerol.gpg\_export][3] lookup plugin. Especially useful is `homedir` in
   order to set the gnupg home to a directory with a source controlled public
