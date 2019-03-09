@@ -1,3 +1,25 @@
 ---
 - import_role:
     name: znerol.wkd
+
+- import_role:
+    name: znerol.gpg_export
+
+- name: WKD directory present
+  loop: "{{ wkd_gpg_uids | list }}"
+  loop_control:
+    loop_var: wkd_gpg_uid
+  file:
+    state: directory
+    path: "{{ wkd_gpg_export_dest | dirname }}"
+    recurse: true
+
+- name: GPG key exported
+  vars:
+    _export_params: "{{ wkd_gpg_export_params_defaults | combine(wkd_gpg_export_params ) }}"
+  loop: "{{ wkd_gpg_uids | list }}"
+  loop_control:
+    loop_var: wkd_gpg_uid
+  copy:
+    content: "{{ lookup('gpg_export', wkd_gpg_uid, **_export_params) }}"
+    dest: "{{ wkd_gpg_export_dest }}"

@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: wkd_gpg
   author: Lorenz Schori
@@ -31,3 +32,4 @@ galaxy_info:
 
 dependencies:
   - znerol.wkd
+  - znerol.gpg_export

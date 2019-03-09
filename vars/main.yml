@@ -1,0 +1,4 @@
+---
+wkd_gpg_export_params_defaults:
+   armor: False
+   mode: exact_email
