@@ -12,26 +12,20 @@
       homedir: "{{ playbook_dir }}/fixtures/gnupg"
 
   tasks:
-    - name: Role znerol.wkd_gpg imported
-      import_role:
-        name: ../../ansible-role-wkd-gpg
-
     - name: Test wkd_dir tasks direct directory structure
       vars:
-        wkd_basedir: "/tmp/test3"
-        wkd_method: 'direct'
+        wkd_basedir: /tmp/test3
+        wkd_method: direct
       block:
         - name: WKD directory structure generated
           include_role:
             name: ../../ansible-role-wkd-gpg
-            tasks_from: wkd_dir
 
     - name: Test wkd_dir tasks advanced directory structure
       vars:
-        wkd_basedir: "/tmp/test4"
-        wkd_method: 'advanced'
+        wkd_basedir: /tmp/test4
+        wkd_method: advanced
       block:
         - name: WKD directory structure generated
           include_role:
             name: ../../ansible-role-wkd-gpg
-            tasks_from: wkd_dir
