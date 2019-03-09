@@ -61,6 +61,6 @@ Usage of `znerol.wkd_gpg` role:
 License
 -------
 
-GPLv3
+MIT
 
 [1]: https://wiki.gnupg.org/WKD

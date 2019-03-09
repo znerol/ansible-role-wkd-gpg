@@ -6,7 +6,7 @@ galaxy_info:
 
   issue_tracker_url: https://github.com/znerol/ansible-role-wkd-gpg
 
-  license: GPLv3
+  license: MIT
 
   min_ansible_version: 2.5
 
